@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Leaflet.MultiOptionsPolyline : A Leaflet plugin for multi-colored polyline" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Leaflet.MultiOptionsPolyline</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/hgoebl/Leaflet.MultiOptionsPolyline">View on GitHub</a>
+
+          <h1 id="project_title">Leaflet.MultiOptionsPolyline</h1>
+          <h2 id="project_tagline">A Leaflet plugin for multi-colored polyline</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/hgoebl/Leaflet.MultiOptionsPolyline/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/hgoebl/Leaflet.MultiOptionsPolyline/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="leafletmultioptionspolyline" class="anchor" href="#leafletmultioptionspolyline"><span class="octicon octicon-link"></span></a>Leaflet.MultiOptionsPolyline</h1>
+
+<p>A <a href="http://leafletjs.com/">Leaflet</a>-plugin to enable multiple styles for a polyline.</p>
+
+<p>Here you can see a <strong>TODO link to demo</strong></p>
+
+<h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<p><strong>TODO</strong></p>
+
+<h1>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h1>
+
+<div class="highlight highlight-js"><pre><span class="nx">L</span><span class="p">.</span><span class="nx">multiOptionsPolyline</span><span class="p">(</span><span class="nx">points</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">multiOptions</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">optionIdxFn</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">latLng</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span>
+                <span class="nx">altThresholds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">800</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1100</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">1300</span><span class="p">,</span> <span class="mi">1400</span><span class="p">,</span> <span class="mi">1500</span><span class="p">];</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">altThresholds</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">latLng</span><span class="p">.</span><span class="nx">alt</span> <span class="o">&lt;=</span> <span class="nx">altThresholds</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">i</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">altThresholds</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">options</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">'#0000FF'</span><span class="p">},</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">'#0040FF'</span><span class="p">},</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">'#0080FF'</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">'#00FFB0'</span><span class="p">},</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">'#00E000'</span><span class="p">},</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">'#80FF00'</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">'#FFFF00'</span><span class="p">},</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">'#FFC000'</span><span class="p">},</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">'#FF0000'</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">weight</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nx">lineCap</span><span class="o">:</span> <span class="s1">'butt'</span><span class="p">,</span>
+    <span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.75</span><span class="p">,</span>
+    <span class="nx">smoothFactor</span><span class="o">:</span> <span class="mi">1</span><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<h2>
+<a name="bower" class="anchor" href="#bower"><span class="octicon octicon-link"></span></a>Bower</h2>
+
+<pre><code>$ bower install hgoebl/Leaflet.MultiOptionsPolyline --save
+</code></pre>
+
+<h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>MIT-License (see LICENSE file).</p>
+
+<h1>
+<a name="testing" class="anchor" href="#testing"><span class="octicon octicon-link"></span></a>Testing</h1>
+
+<p><strong>TODO</strong> no tests so far</p>
+
+<p>Open <code>tests/SpecRunner.html</code> in different browsers.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Leaflet.MultiOptionsPolyline maintained by <a href="https://github.com/hgoebl">hgoebl</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
