@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Leaflet.MultiOptionsPolyline Demo</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+    <style>
+        @media (min-width: 768px) {
+            .map {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .map {
+                height: 250px;
+            }
+        }
+        div.row {
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1 class="docs-heading">Leaflet.MultiOptionsPolyline Demo</h1>
+    </div>
+    <p class="lead">Use more than one 'options' definition depending on your data!</p>
+
+    <p>
+        Here you can see some examples of color-coded polylines. For a description how to use
+        this little <a href="http://leafletjs.com/">Leaflet</a>-Plugin, please go to the
+        <a href="https://github.com/hgoebl/Leaflet.MultiOptionsPolyline">Github page</a>
+        of this project.
+    </p>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <h2>Altitude</h2>
+            Bla, bla
+        </div>
+        <div class="col-md-8 col-sm-8">
+            <div id="map1" class="map"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <h2>Heartrate</h2>
+            Bla, bla
+        </div>
+        <div class="col-md-8 col-sm-8">
+            <div id="map2" class="map"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <h2>Tri-colored dashed line</h2>
+            Bla, bla
+        </div>
+        <div class="col-md-8 col-sm-8">
+            <div id="map3" class="map"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <h2>Speed</h2>
+            Bla, bla
+        </div>
+        <div class="col-md-8 col-sm-8">
+            <div id="map4" class="map"></div>
+        </div>
+    </div>
+    <div class="row">
+        <p>Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img
+                src="http://developer.mapquest.com/content/osm/mq_logo.png"></p>
+    </div>
+</div>
+
+<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+<script src="../Leaflet.MultiOptionsPolyline.js"></script>
+<script src="lib/zepto.min.js"></script>
+<script src="js/demo.js"></script>
+</body>
+</html>

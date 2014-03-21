@@ -1,0 +1,26 @@
+{
+    "name": "Leaflet.MultiOptionsPolyline",
+    "version": "0.0.1",
+    "description": "A Leaflet plugin for multi-colored Polyline",
+    "homepage": "http://hgoebl.github.io/Leaflet.MultiOptionsPolyline/",
+    "keywords": [
+        "color",
+        "color-coded",
+        "leaflet",
+        "polyline"
+    ],
+    "authors": [
+        "Heinrich Goebl <hgoebl@goebl.com>"
+    ],
+    "license": "MIT",
+    "main": "Leaflet.MultiOptionsPolyline.js",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "demo",
+        "tests",
+        "Gruntfile.js",
+        "package.json",
+        "*.iml"
+    ]
+}
