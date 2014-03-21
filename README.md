@@ -2,7 +2,7 @@
 
 A [Leaflet](http://leafletjs.com/)-plugin to enable multiple styles for a polyline.
 
-Here you can see a **TODO link to demo**
+Here you can see a [demo](http://hgoebl.github.io/Leaflet.MultiOptionsPolyline/demo/).
 
 # Usage
 

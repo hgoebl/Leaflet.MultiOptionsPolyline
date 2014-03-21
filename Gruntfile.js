@@ -3,6 +3,7 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
+        ghPagesDir: '../Leaflet.MultiOptionsPolyline@gh-pages/',
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
             options: {
@@ -17,6 +18,14 @@ module.exports = function(grunt) {
         jshint: {
             files: ['Leaflet.MultiOptionsPolyline.js', 'demo/js/*.js'],
             options: {
+            }
+        },
+        copy: {
+            "gh-pages": {
+                files: [
+                    {expand: true, src: ['demo/**'], dest: '<%= ghPagesDir %>'},
+                    {expand: true, src: ['Leaflet.MultiOptionsPolyline.js'], dest: '<%= ghPagesDir %>'}
+                ]
             }
         },
         jasmine: {
@@ -47,6 +56,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     //grunt.loadNpmTasks('grunt-contrib-jasmine');
     //grunt.loadNpmTasks('grunt-contrib-connect');
 
