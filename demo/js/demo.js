@@ -14,7 +14,9 @@
         tiles: {
             mapQuest: {
                 layer: 'http://otile4.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' +
+                    ', Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
+                    '<img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
             },
             osm: {
                 layer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
@@ -42,7 +44,7 @@
         _multiOptions: {
             triZebra: {
                 optionIdxFn: function (latLng, prevLatLng, index) {
-                    return Math.floor(index / 5) % 3;
+                    return Math.floor(index / 3) % 3;
                 },
                 options: [
                     {color: '#2FFC14'},
@@ -53,7 +55,7 @@
             heartRate: {
                 optionIdxFn: function (latLng) {
                     var i, hr = latLng.meta.hr,
-                        zones = [94, 107, 120, 125, 141, 146, 155, 164];
+                        zones = [100, 110, 120, 130, 140, 150, 160, 164]; // beats per minute
 
                     for (i = 0; i < zones.length; ++i) {
                         if (hr <= zones[i]) {
@@ -74,7 +76,7 @@
                         speedThresholds = [30, 35, 40, 45, 50, 55, 60, 65];
 
                     speed = latLng.distanceTo(prevLatLng); // meters
-                    speed /= (latLng.meta.time - prevLatLng.meta.time) / 1000;
+                    speed /= (latLng.meta.time - prevLatLng.meta.time) / 1000; // m/s
                     speed *= 3.6; // km/h
 
                     for (i = 0; i < speedThresholds.length; ++i) {
@@ -93,7 +95,7 @@
             altitude: {
                 optionIdxFn: function (latLng) {
                     var i, alt = latLng.alt,
-                        altThresholds = [800, 900, 1000, 1100, 1200, 1300, 1400, 1500];
+                        altThresholds = [800, 900, 1000, 1100, 1200, 1300, 1400, 1500]; // meters
 
                     if (!alt) {
                         return 0;
@@ -105,6 +107,109 @@
                         }
                     }
                     return altThresholds.length;
+                },
+                options: [
+                    {color: '#0000FF'}, {color: '#0040FF'}, {color: '#0080FF'},
+                    {color: '#00FFB0'}, {color: '#00E000'}, {color: '#80FF00'},
+                    {color: '#FFFF00'}, {color: '#FFC000'}, {color: '#FF0000'}
+                ]
+            },
+            inclineLast5: {
+                optionIdxFn: function (latLng, prevLatLng, index, points) {
+                    var i, minAltitude, deltaAltitude, deltaTime, incline, startIndex,
+                        thresholds = [200, 300, 400, 500, 600, 700, 800, 900]; // m/h
+
+                    startIndex = Math.max(index - 5, 0);
+                    minAltitude = Infinity;
+                    for (i = startIndex; i < index; ++i) {
+                        minAltitude = Math.min(minAltitude, points[i].alt);
+                    }
+                    deltaAltitude = latLng.alt - minAltitude; // meters
+                    deltaTime = (latLng.meta.time - points[startIndex].meta.time) / 1000; // sec
+                    incline = 3600 * deltaAltitude / deltaTime; // m/h
+
+                    if (isNaN(incline)) {
+                        return 4; // neutral
+                    }
+
+                    for (i = 0; i < thresholds.length; ++i) {
+                        if (incline <= thresholds[i]) {
+                            return i;
+                        }
+                    }
+                    return thresholds.length;
+                },
+                options: [
+                    {color: '#0000FF'}, {color: '#0040FF'}, {color: '#0080FF'},
+                    {color: '#00FFB0'}, {color: '#00E000'}, {color: '#80FF00'},
+                    {color: '#FFFF00'}, {color: '#FFC000'}, {color: '#FF0000'}
+                ]
+            },
+            inclineClustered: {
+                fnContext: {
+                    lastSlot: -1,
+                    lastOptionIdx: 0
+                },
+                optionIdxFn: function (latLng, prevLatLng, index, points) {
+                    var i, deltaAltitude, deltaTime, incline, startIndex, endIndex,
+                        gain,
+                        slot, slotSize = Math.floor(points.length / 60),
+                        thresholds = [200, 300, 400, 500, 600, 700, 800, 900];
+
+                    slot = Math.floor(index / slotSize);
+                    if (slot === this.lastSlot) {
+                        return this.lastOptionIdx;
+                    }
+
+                    this.lastSlot = slot;
+                    startIndex = slot * slotSize;
+                    endIndex = Math.min(startIndex + slotSize, points.length) - 1;
+                    gain = 0;
+                    for (i = startIndex + 1; i <= endIndex; ++i) {
+                        deltaAltitude = points[i].alt - points[i - 1].alt;
+                        if (deltaAltitude > 0) {
+                            gain += deltaAltitude;
+                        }
+                    }
+                    deltaTime = (points[endIndex].meta.time - points[startIndex].meta.time) / 1000; // sec
+                    incline = 3600 * gain / deltaTime; // m/h
+
+                    if (isNaN(incline)) {
+                        return (this.lastOptionIdx = 4); // neutral
+                    }
+
+                    for (i = 0; i < thresholds.length; ++i) {
+                        if (incline <= thresholds[i]) {
+                            break;
+                        }
+                    }
+                    return (this.lastOptionIdx = i);
+                },
+                options: [
+                    {color: '#0000FF'}, {color: '#0040FF'}, {color: '#0080FF'},
+                    {color: '#00FFB0'}, {color: '#00E000'}, {color: '#80FF00'},
+                    {color: '#FFFF00'}, {color: '#FFC000'}, {color: '#FF0000'}
+                ]
+            },
+            inclineSimple: {
+                optionIdxFn: function (latLng, prevLatLng) {
+                    var i, deltaAltitude, deltaTime, incline,
+                        thresholds = [200, 300, 400, 500, 600, 700, 800, 900];
+
+                    deltaAltitude = latLng.alt - prevLatLng.alt; // meters
+                    deltaTime = (latLng.meta.time - prevLatLng.meta.time) / 1000; // sec
+                    incline = 3600 * deltaAltitude / deltaTime; // m/h
+
+                    if (isNaN(incline)) {
+                        return 4; // neutral
+                    }
+
+                    for (i = 0; i < thresholds.length; ++i) {
+                        if (incline <= thresholds[i]) {
+                            return i;
+                        }
+                    }
+                    return thresholds.length;
                 },
                 options: [
                     {color: '#0000FF'}, {color: '#0040FF'}, {color: '#0080FF'},
@@ -149,8 +254,9 @@
     };
 
     new Demo('map1', 'altitude').loadData('hochries');
-    new Demo('map2', 'heartRate').loadData('hochries');
-    new Demo('map3', 'triZebra').loadData('hallenbad');
-    new Demo('map4', 'speed').loadData('hallenbad');
+    new Demo('map2', 'inclineClustered').loadData('hochries');
+    new Demo('map3', 'heartRate').loadData('hochries');
+    new Demo('map4', 'triZebra').loadData('hallenbad');
+    new Demo('map5', 'speed').loadData('hallenbad');
 
 })(Zepto);

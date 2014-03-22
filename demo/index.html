@@ -26,7 +26,7 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <h1 class="docs-heading">Leaflet.MultiOptionsPolyline Demo</h1>
+        <h1 class="docs-heading">Leaflet.MultiOptionsPolyline <small>Demo</small></h1>
     </div>
     <p class="lead">Use more than one 'options' definition depending on your data!</p>
 
@@ -40,7 +40,12 @@
     <div class="row">
         <div class="col-md-4 col-sm-4">
             <h2>Altitude</h2>
-            Bla, bla
+            <p>
+                Takes the (optional) `alt` property from LatLng and selects a color (blue, green, yellow, orange, red)
+                depending on altitude (meters above sea level).
+            </p>
+            <br>
+            <a target="_blank" href="https://github.com/hgoebl/Leaflet.MultiOptionsPolyline/blob/master/demo/js/demo.js#L95-L116">View Source</a>
         </div>
         <div class="col-md-8 col-sm-8">
             <div id="map1" class="map"></div>
@@ -48,8 +53,17 @@
     </div>
     <div class="row">
         <div class="col-md-4 col-sm-4">
-            <h2>Heartrate</h2>
-            Bla, bla
+            <h2>Incline (Clustered)</h2>
+            <p>
+                This example is the most complex of all. It splits all LatLngs into about 60 groups (slots).
+                The option-index is calculated for the whole group and then stored in the function context.
+                LatLngs from the same group can take this cached option-index, so we can save CPU.<br>
+                <br>
+                Background: the incline is often measured in meter/hour and is a measurement how fast you
+                climb on mountains. For MTB a value of 600-900 m/h is quite ambitious.
+            </p>
+            <br>
+            <a target="_blank" href="https://github.com/hgoebl/Leaflet.MultiOptionsPolyline/blob/master/demo/js/demo.js#L148-L193">View Source</a>
         </div>
         <div class="col-md-8 col-sm-8">
             <div id="map2" class="map"></div>
@@ -57,8 +71,17 @@
     </div>
     <div class="row">
         <div class="col-md-4 col-sm-4">
-            <h2>Tri-colored dashed line</h2>
-            Bla, bla
+            <h2>Heartrate</h2>
+            <p>
+                This is easy. The value in `latLng.meta.hr` is the current heartrate in beats per minute.
+                <br>
+                During a workout, in this case mountaineering, the heartrate can get to its limit.<br>
+                This graphic shows the color-coded heartrate from &lt;100 (dark blue), over the target
+                zone (between 120 and 150 bpm, shades of green) and above in yellow, orange and red
+                (above 165 beats per minute).<br>
+            </p>
+            <br>
+            <a target="_blank" href="https://github.com/hgoebl/Leaflet.MultiOptionsPolyline/blob/master/demo/js/demo.js#L55-L72">View Source</a>
         </div>
         <div class="col-md-8 col-sm-8">
             <div id="map3" class="map"></div>
@@ -66,16 +89,42 @@
     </div>
     <div class="row">
         <div class="col-md-4 col-sm-4">
-            <h2>Speed</h2>
-            Bla, bla
+            <h2>Tri-colored dashed line</h2>
+            <p>
+                This example changes color every 3 LatLng points (only 3 different colors).<br>
+                A much more involved task would be to change color after a particular distance.
+            </p>
+            <br>
+            <a target="_blank" href="https://github.com/hgoebl/Leaflet.MultiOptionsPolyline/blob/master/demo/js/demo.js#L45-L54">View Source</a>
         </div>
         <div class="col-md-8 col-sm-8">
             <div id="map4" class="map"></div>
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <h2>Speed</h2>
+            <p>
+                Here you have a ride by car of a guy who seems to drive too fast sometimes (a personally don't
+                know him/her).<br>
+                Speed is color-coded from shades of blue (&lt;= 40 km/h), shades of green (&gt; 40 km/h until
+                55 km/h) and above it's getting yellow, orange and red.<br>
+                Speed is calculated by `LatLng.distanceTo()` and `latLng.meta.time`.
+            </p>
+            <br>
+            <a target="_blank" href="https://github.com/hgoebl/Leaflet.MultiOptionsPolyline/blob/master/demo/js/demo.js#L73-L94">View Source</a>
+        </div>
+        <div class="col-md-8 col-sm-8">
+            <div id="map5" class="map"></div>
+        </div>
+    </div>
+    <div class="row">
         <p>Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img
                 src="http://developer.mapquest.com/content/osm/mq_logo.png"></p>
+        <div class="alert alert-info">
+            I want to say "Thank You" to MapQuest for providing the OpenStreetMap tiles!<br>
+            Hopefully this excellent service will be available for a long time.
+        </div>
     </div>
 </div>
 
