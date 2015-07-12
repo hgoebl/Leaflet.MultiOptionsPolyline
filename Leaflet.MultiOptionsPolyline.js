@@ -71,9 +71,9 @@ L.MultiOptionsPolyline = L.FeatureGroup.extend({
             if (prevOptionIdx !== optionIdx || i === len - 1) {
                 //Check if options is a function or an array
                 if(typeof multiOptions.options == "function"){
-                    this.addLayer(new L.Polyline(segmentLatlngs, multiOptions.options(optionIdx)));
+                    this.addLayer(new L.Polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)));
                 }else{
-                    this.addLayer(new L.Polyline(segmentLatlngs, multiOptions.options[optionIdx]));
+                    this.addLayer(new L.Polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]));
                 }
 
                 prevOptionIdx = optionIdx;
