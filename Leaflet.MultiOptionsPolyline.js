@@ -22,7 +22,6 @@ L.MultiOptionsPolyline = L.FeatureGroup.extend({
 
         this._layers = {};
         this._options = options;
-        this._originalLatlngs = latlngs;
         if (copyBaseOptions === undefined || copyBaseOptions) {
             this._copyBaseOptions();
         }
@@ -51,6 +50,8 @@ L.MultiOptionsPolyline = L.FeatureGroup.extend({
             fnContext = multiOptions.fnContext || this,
             prevOptionIdx, optionIdx,
             segmentLatlngs;
+
+        this._originalLatlngs = latlngs;
 
         this.eachLayer(function (layer) {
             this.removeLayer(layer);

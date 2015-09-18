@@ -1,6 +1,6 @@
 {
     "name": "Leaflet.MultiOptionsPolyline",
-    "version": "0.0.1",
+    "version": "0.8.0",
     "description": "A Leaflet plugin for multi-colored Polyline",
     "homepage": "http://hgoebl.github.io/Leaflet.MultiOptionsPolyline/",
     "keywords": [

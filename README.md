@@ -6,7 +6,7 @@ Here you can see a [demo](http://hgoebl.github.io/Leaflet.MultiOptionsPolyline/d
 
 # Usage
 
-**TODO**
+Have a look at the demo. Links to source code are included.
 
 # Example
 
