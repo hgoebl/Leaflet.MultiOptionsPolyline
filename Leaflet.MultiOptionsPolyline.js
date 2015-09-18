@@ -9,7 +9,7 @@
  *     multiOptions: {
  *         optionIdxFn: function (latLng, prevLatLng, index, allLatlngs),
  *         fnContext: ctx, // the context to call optionIdxFn (optional)
- *         options: [{}, {}, {}], // options for the index returned by optionIdxFn
+ *         options: [{}, {}, {}] or function, // options for the index returned by optionIdxFn. If supplied with a function then it will be called with the index
  *         copyBaseOptions: true
  *     },
  *     // other options from Polyline
@@ -22,7 +22,6 @@ L.MultiOptionsPolyline = L.FeatureGroup.extend({
 
         this._layers = {};
         this._options = options;
-        this._originalLatlngs = latlngs;
         if (copyBaseOptions === undefined || copyBaseOptions) {
             this._copyBaseOptions();
         }
@@ -52,6 +51,8 @@ L.MultiOptionsPolyline = L.FeatureGroup.extend({
             prevOptionIdx, optionIdx,
             segmentLatlngs;
 
+        this._originalLatlngs = latlngs;
+
         this.eachLayer(function (layer) {
             this.removeLayer(layer);
         }, this);
@@ -69,7 +70,13 @@ L.MultiOptionsPolyline = L.FeatureGroup.extend({
 
             // is there a change in options or is it the last point?
             if (prevOptionIdx !== optionIdx || i === len - 1) {
-                this.addLayer(new L.Polyline(segmentLatlngs, multiOptions.options[optionIdx]));
+                //Check if options is a function or an array
+                if(typeof multiOptions.options == "function"){
+                    this.addLayer(new L.Polyline(segmentLatlngs, multiOptions.options(optionIdx)));
+                }else{
+                    this.addLayer(new L.Polyline(segmentLatlngs, multiOptions.options[optionIdx]));
+                }
+
                 prevOptionIdx = optionIdx;
                 segmentLatlngs = [latlngs[i]];
             }
