@@ -63,7 +63,7 @@ L.MultiOptionsPolyline = L.FeatureGroup.extend({
 
             if (i === 1) {
                 segmentLatlngs = [latlngs[0]];
-                prevOptionIdx = optionIdx;
+                prevOptionIdx = optionIdxFn.call(fnContext, latlngs[0], latlngs[0], 0, latlngs);
             }
 
             segmentLatlngs.push(latlngs[i]);
