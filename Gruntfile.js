@@ -27,29 +27,6 @@ module.exports = function(grunt) {
                     {expand: true, src: ['Leaflet.MultiOptionsPolyline.js'], dest: '<%= ghPagesDir %>'}
                 ]
             }
-        },
-        jasmine: {
-            pivotal: {
-                src: [
-                    'src/**/*.js'
-                ],
-                options: {
-                    specs: 'spec/*Spec.js',
-                    helpers: 'spec/*Helper.js',
-                    vendor: [
-                        'http://cdn.leafletjs.com/leaflet-0.7.2/leaflet-src.js'
-                    ],
-                    '--local-to-remote-url-access': true
-                }
-            }
-        },
-        connect: {
-            server: {
-                options: {
-                    port: 9001,
-                    base: 'spec'
-                }
-            }
         }
 
     });
@@ -57,11 +34,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    //grunt.loadNpmTasks('grunt-contrib-jasmine');
-    //grunt.loadNpmTasks('grunt-contrib-connect');
 
-    grunt.registerTask('default', ['jshint', /*'connect', 'jasmine',*/ 'uglify']);
-
-    //grunt.registerTask('test', ['connect', 'jasmine']);
+    grunt.registerTask('default', ['jshint', 'uglify']);
 
 };

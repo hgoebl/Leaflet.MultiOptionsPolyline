@@ -1,39 +1,39 @@
 {
-    "name": "Leaflet.MultiOptionsPolyline",
-    "version": "0.8.1",
-    "description": "A Leaflet plugin for multi-colored Polyline",
-    "devDependencies": {
-        "grunt": "~0.4",
-        "grunt-contrib-uglify": "~0.3",
-        "grunt-contrib-copy": "~0.5",
-        "grunt-contrib-concat": "~0.3",
-        "grunt-contrib-clean": "~0.5",
-        "grunt-contrib-cssmin": "~0.8",
-        "grunt-contrib-jasmine": "~0.6",
-        "grunt-contrib-connect": "~0.7",
-        "grunt-contrib-jshint": "~0.8",
-        "grunt-contrib-less": "~0.9",
-        "leaflet": "~0.7"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/hgoebl/Leaflet.MultiOptionsPolyline.git"
-    },
-    "keywords": [
-        "color",
-        "color-coded",
-        "leaflet",
-        "polyline"
-    ],
-    "author": {
-        "name": "Heinrich Goebl",
-        "email": "hgoebl@goebl.com",
-        "url": "http://www.goebl.com/"
-    },
-    "license": "MIT",
-    "readmeFilename": "README.md",
-    "homepage": "http://hgoebl.github.io/Leaflet.MultiOptionsPolyline/",
-    "bugs": {
-        "url": "https://github.com/hgoebl/Leaflet.MultiOptionsPolyline/issues"
-    }
+  "name": "Leaflet.MultiOptionsPolyline",
+  "version": "1.0.0",
+  "description": "A Leaflet plugin for multi-colored Polyline",
+  "main": "Leaflet.MultiOptionsPolyline.js",
+  "typings": "index",
+  "devDependencies": {
+    "@types/leaflet": "^1.0.38",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.0.0"
+  },
+  "peerDependencies": {
+    "leaflet": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hgoebl/Leaflet.MultiOptionsPolyline.git"
+  },
+  "keywords": [
+    "color",
+    "color-coded",
+    "leaflet",
+    "polyline"
+  ],
+  "author": {
+    "name": "Heinrich Goebl",
+    "email": "hgoebl@goebl.com",
+    "url": "http://www.goebl.com/"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "homepage": "http://hgoebl.github.io/Leaflet.MultiOptionsPolyline/",
+  "bugs": {
+    "url": "https://github.com/hgoebl/Leaflet.MultiOptionsPolyline/issues"
+  }
 }

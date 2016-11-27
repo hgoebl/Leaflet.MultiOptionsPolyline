@@ -1,3 +1,7 @@
 .idea
 *.iml
 node_modules
+demo/
+Gruntfile.js
+bower.json
+.jshintrc

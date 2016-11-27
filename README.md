@@ -46,8 +46,3 @@ L.multiOptionsPolyline(points, {
 
 MIT-License (see LICENSE file).
 
-# Testing
-
-**TODO** no tests so far
-
-Open `tests/SpecRunner.html` in different browsers.

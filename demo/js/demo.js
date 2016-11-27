@@ -5,28 +5,14 @@
     function Demo(mapId, multiOptionsKey) {
         this.mapId = mapId;
         this.selected = multiOptionsKey || 'altitude';
-        this.tilesKey = 'mapQuest';
     }
 
     Demo.prototype = {
         constructor: Demo,
 
-        tiles: {
-            mapQuest: {
-                layer: 'http://otile4.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' +
-                    ', Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
-                    '<img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
-            },
-            osm: {
-                layer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            }
-        },
-
         trackPointFactory: function (data) {
             return data.map(function (item) {
-                var trkpt = new L.LatLng(item.lat, item.lng, item.alt);
+                var trkpt = L.latLng(item.lat, item.lng, item.alt);
                 trkpt.meta = item.meta;
                 return trkpt;
             });
@@ -221,15 +207,12 @@
 
         showMapAndTrack: function () {
             var me = this,
-                points = me.trackPoints,
-                tiles = me.tiles[me.tilesKey];
+                points = me.trackPoints;
 
             if (!me.map) {
-                me.map = L.map(me.mapId);
-
-                L.tileLayer(tiles.layer, {
-                    attribution: tiles.attribution
-                }).addTo(me.map);
+                me.map = L.map(me.mapId, {
+                    layers: MQ.mapLayer()
+                });
             }
 
             if (me.visibleTrack) {
