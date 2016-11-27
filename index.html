@@ -32,32 +32,32 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a id="leafletmultioptionspolyline" class="anchor" href="#leafletmultioptionspolyline" aria-hidden="true"><span class="octicon octicon-link"></span></a>Leaflet.MultiOptionsPolyline</h1>
+<a id="leafletmultioptionspolyline" class="anchor" href="#leafletmultioptionspolyline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Leaflet.MultiOptionsPolyline</h1>
 
 <p>A <a href="http://leafletjs.com/">Leaflet</a>-plugin to enable multiple styles for a polyline.</p>
 
 <p>Here you can see a <a href="http://hgoebl.github.io/Leaflet.MultiOptionsPolyline/demo/">demo</a>.</p>
 
 <h1>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h1>
 
 <p>Have a look at the demo. Links to source code are included.</p>
 
 <h1>
-<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h1>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h1>
 
-<div class="highlight highlight-source-js"><pre>L.multiOptionsPolyline(points, {
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">L</span>.<span class="pl-en">multiOptionsPolyline</span>(points, {
     multiOptions<span class="pl-k">:</span> {
         <span class="pl-en">optionIdxFn</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">latLng</span>) {
             <span class="pl-k">var</span> i,
                 altThresholds <span class="pl-k">=</span> [<span class="pl-c1">800</span>, <span class="pl-c1">900</span>, <span class="pl-c1">1000</span>, <span class="pl-c1">1100</span>, <span class="pl-c1">1200</span>, <span class="pl-c1">1300</span>, <span class="pl-c1">1400</span>, <span class="pl-c1">1500</span>];
 
-            <span class="pl-k">for</span> (i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> altThresholds.<span class="pl-c1">length</span>; <span class="pl-k">++</span>i) {
-                <span class="pl-k">if</span> (latLng.<span class="pl-c1">alt</span> <span class="pl-k">&lt;=</span> altThresholds[i]) {
+            <span class="pl-k">for</span> (i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> <span class="pl-smi">altThresholds</span>.<span class="pl-c1">length</span>; <span class="pl-k">++</span>i) {
+                <span class="pl-k">if</span> (<span class="pl-smi">latLng</span>.<span class="pl-c1">alt</span> <span class="pl-k">&lt;=</span> altThresholds[i]) {
                     <span class="pl-k">return</span> i;
                 }
             }
-            <span class="pl-k">return</span> altThresholds.<span class="pl-c1">length</span>;
+            <span class="pl-k">return</span> <span class="pl-smi">altThresholds</span>.<span class="pl-c1">length</span>;
         },
         options<span class="pl-k">:</span> [
             {color<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#0000FF<span class="pl-pds">'</span></span>}, {color<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#0040FF<span class="pl-pds">'</span></span>}, {color<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#0080FF<span class="pl-pds">'</span></span>},
@@ -68,28 +68,21 @@
     weight<span class="pl-k">:</span> <span class="pl-c1">5</span>,
     lineCap<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>butt<span class="pl-pds">'</span></span>,
     opacity<span class="pl-k">:</span> <span class="pl-c1">0.75</span>,
-    smoothFactor<span class="pl-k">:</span> <span class="pl-c1">1</span>}).addTo(map);</pre></div>
+    smoothFactor<span class="pl-k">:</span> <span class="pl-c1">1</span>}).<span class="pl-en">addTo</span>(map);</pre></div>
 
 <h1>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
 
 <h2>
-<a id="bower" class="anchor" href="#bower" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bower</h2>
+<a id="bower" class="anchor" href="#bower" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bower</h2>
 
 <pre><code>$ bower install hgoebl/Leaflet.MultiOptionsPolyline --save
 </code></pre>
 
 <h1>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h1>
 
 <p>MIT-License (see LICENSE file).</p>
-
-<h1>
-<a id="testing" class="anchor" href="#testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testing</h1>
-
-<p><strong>TODO</strong> no tests so far</p>
-
-<p>Open <code>tests/SpecRunner.html</code> in different browsers.</p>
       </section>
     </div>
 
