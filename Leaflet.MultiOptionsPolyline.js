@@ -1,7 +1,13 @@
-/*global L */
-
-(function () {
-'use strict';
+(function (root, factory) {
+    if (typeof define === "function" && define.amd) {
+        define(["leaflet"], factory);
+    } else if (typeof module === "object" && module.exports) {
+        factory(require("leaflet"));
+    } else {
+        factory(root.L);
+    }
+} (this, function (L) {
+    "use strict";
 
 /*
  * L.MultiOptionsPolyline is a MultiPolyLine which parts can be styled differently.
@@ -15,7 +21,7 @@
  *     // other options from Polyline
  * }
  */
-L.MultiOptionsPolyline = L.FeatureGroup.extend({
+var MultiOptionsPolyline = L.FeatureGroup.extend({
 
     initialize: function (latlngs, options) {
         var copyBaseOptions = options.multiOptions.copyBaseOptions;
@@ -63,18 +69,18 @@ L.MultiOptionsPolyline = L.FeatureGroup.extend({
 
             if (i === 1) {
                 segmentLatlngs = [latlngs[0]];
-                prevOptionIdx = optionIdx;
+                prevOptionIdx = optionIdxFn.call(fnContext, latlngs[0], latlngs[0], 0, latlngs);
             }
 
             segmentLatlngs.push(latlngs[i]);
 
             // is there a change in options or is it the last point?
             if (prevOptionIdx !== optionIdx || i === len - 1) {
-                //Check if options is a function or an array
-                if(typeof multiOptions.options == "function"){
-                    this.addLayer(new L.Polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)));
-                }else{
-                    this.addLayer(new L.Polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]));
+                // Check if options is a function or an array
+                if (typeof multiOptions.options === "function") {
+                    this.addLayer(L.polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)));
+                } else {
+                    this.addLayer(L.polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]));
                 }
 
                 prevOptionIdx = optionIdx;
@@ -100,8 +106,9 @@ L.MultiOptionsPolyline = L.FeatureGroup.extend({
     }
 });
 
+L.MultiOptionsPolyline = MultiOptionsPolyline;
 L.multiOptionsPolyline = function (latlngs, options) {
-    return new L.MultiOptionsPolyline(latlngs, options);
+    return new MultiOptionsPolyline(latlngs, options);
 };
 
-}());
+}));
