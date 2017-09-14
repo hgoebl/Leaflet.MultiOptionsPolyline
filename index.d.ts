@@ -1,5 +1,5 @@
 /// <reference types="leaflet" />
-import { PolylineOptions, LatLng, MarkerOptions, FeatureGroup } from 'leaflet';
+import { PolylineOptions, LatLng, FeatureGroup } from 'leaflet';
 declare module 'Leaflet.MultiOptionsPolyline' {
     export type PolylineOptionsFn = (optionIdx: number) => PolylineOptions;
 
@@ -12,7 +12,7 @@ declare module 'Leaflet.MultiOptionsPolyline' {
         copyBaseOptions?: boolean;
     }
 
-    export interface MultiOptionsPolylineOptions extends MarkerOptions {
+    export interface MultiOptionsPolylineOptions extends PolylineOptions {
         multiOptions: MultiOptions;
     }
 
