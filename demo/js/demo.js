@@ -222,7 +222,7 @@
             me.visibleTrack = L.featureGroup();
 
             // create a polyline from an arrays of LatLng points
-            var polyline = L.multiOptionsPolyline(points, {
+            var polyline = multiOptionsPolyline(points, {
                 multiOptions: me._multiOptions[me.selected],
                 weight: 5,
                 lineCap: 'butt',

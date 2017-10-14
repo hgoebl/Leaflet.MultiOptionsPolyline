@@ -15,7 +15,7 @@ export interface MultiOptionsPolylineOptions extends MarkerOptions {
     multiOptions: MultiOptions;
 }
 
-class MultiOptionsPolyline extends FeatureGroup {
+export default class MultiOptionsPolyline extends FeatureGroup {
     _layers: object;
     _options: any;
     _originalLatlngs: Array<LatLng>;
@@ -48,7 +48,7 @@ class MultiOptionsPolyline extends FeatureGroup {
         }
     }
 
-    setLatLngs (latlngs) {
+    setLatLngs (latlngs:Array<LatLng>) {
         let i, len = latlngs.length,
             multiOptions = this._options.multiOptions,
             optionIdxFn = multiOptions.optionIdxFn,
@@ -56,7 +56,7 @@ class MultiOptionsPolyline extends FeatureGroup {
             prevOptionIdx, optionIdx,
             segmentLatlngs;
 
-        this.eachLayer(function (layer) {
+        this.eachLayer((layer) => {
             this.removeLayer(layer);
         }, this);
 
@@ -93,11 +93,11 @@ class MultiOptionsPolyline extends FeatureGroup {
     }
 
     getLatLngsSegments() {
-        let latlngs = [];
+        let latlngs:Array<LatLng> = [];
 
-        this.eachLayer(function (layer) {
+        this.eachLayer((layer) => {
             if(layer instanceof Polyline){
-                latlngs.push(layer.getLatLngs());
+                latlngs.concat(layer.getLatLngs());
             }
         });
 
