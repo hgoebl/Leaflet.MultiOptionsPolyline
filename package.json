@@ -2,8 +2,7 @@
   "name": "leaflet-multi-options-polyline",
   "version": "1.0.0",
   "description": "A Leaflet plugin for multi-colored Polyline",
-  "main": "dist/Leaflet.MultiOptionsPolyline.js",
-  "typings": "index",
+  "main": "dist/MultiOptionsPolyline.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "http-server ./demo",
