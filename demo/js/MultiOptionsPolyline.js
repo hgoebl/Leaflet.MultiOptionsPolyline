@@ -1,5 +1,4 @@
-this.L = this.L || {};
-this.L.MultiOptionsPolyline = (function (exports,leaflet) {
+var MultiOptionsPolyline = (function (leaflet) {
 'use strict';
 
 function __extends(d, b) {
@@ -16,27 +15,29 @@ var MultiOptionsPolyline = /** @class */ (function (_super) {
         _this._originalLatlngs = latlngs;
         var copyBaseOptions = _this._options.multiOptions.copyBaseOptions;
         _this._layers = {};
-        if (copyBaseOptions === undefined || copyBaseOptions) {
-            _this._copyBaseOptions();
+        if (copyBaseOptions) {
+            _this.copyBaseOptions();
         }
         _this.setLatLngs(_this._originalLatlngs);
         return _this;
     }
-    MultiOptionsPolyline.prototype._copyBaseOptions = function () {
-        var multiOptions = this._options.multiOptions, baseOptions, optionsArray = multiOptions.options, i, len = optionsArray.length;
-        baseOptions = leaflet.Util.extend({}, this._options);
+    MultiOptionsPolyline.prototype.copyBaseOptions = function () {
+        var multiOptions = this._options.multiOptions, optionsArray = multiOptions.options;
+        var len = optionsArray.length;
+        var baseOptions = leaflet.Util.extend({}, this._options);
         delete baseOptions.multiOptions;
-        for (i = 0; i < len; ++i) {
-            optionsArray[i] = leaflet.Util.extend(baseOptions, optionsArray[i]);
+        for (var i = 0; i < len; ++i) {
+            optionsArray[i] = leaflet.Util.extend(baseOptions, multiOptions.options[i]);
         }
     };
     MultiOptionsPolyline.prototype.setLatLngs = function (latlngs) {
         var _this = this;
-        var i, len = latlngs.length, multiOptions = this._options.multiOptions, optionIdxFn = multiOptions.optionIdxFn, fnContext = multiOptions.fnContext || this, prevOptionIdx, optionIdx, segmentLatlngs;
+        var multiOptions = this._options.multiOptions, optionIdxFn = multiOptions.optionIdxFn, fnContext = multiOptions.fnContext || this, prevOptionIdx, optionIdx, segmentLatlngs;
         this.eachLayer(function (layer) {
             _this.removeLayer(layer);
         }, this);
-        for (i = 1; i < len; ++i) {
+        var len = latlngs.length;
+        for (var i = 1; i < len; ++i) {
             optionIdx = optionIdxFn.call(fnContext, latlngs[i], latlngs[i - 1], i, latlngs);
             if (i === 1) {
                 segmentLatlngs = [latlngs[0]];
@@ -56,7 +57,6 @@ var MultiOptionsPolyline = /** @class */ (function (_super) {
                 segmentLatlngs = [latlngs[i]];
             }
         }
-        return this;
     };
     MultiOptionsPolyline.prototype.getLatLngs = function () {
         return this._originalLatlngs;
@@ -65,20 +65,14 @@ var MultiOptionsPolyline = /** @class */ (function (_super) {
         var latlngs = [];
         this.eachLayer(function (layer) {
             if (layer instanceof leaflet.Polyline) {
-                latlngs.concat(layer.getLatLngs());
+                latlngs.push(layer.getLatLngs());
             }
         });
         return latlngs;
     };
     return MultiOptionsPolyline;
 }(leaflet.FeatureGroup));
-function multiOptionsPolyline(latlngs, options) {
-    return new MultiOptionsPolyline(latlngs, options);
-}
 
-exports.multiOptionsPolyline = multiOptionsPolyline;
-exports['default'] = MultiOptionsPolyline;
+return MultiOptionsPolyline;
 
-return exports;
-
-}({},leaflet));
+}(L));

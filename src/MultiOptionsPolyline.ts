@@ -1,56 +1,43 @@
 import { Polyline, FeatureGroup, Util, LatLng, PolylineOptions, MarkerOptions } from 'leaflet';
+import { IMultiOptionsPolylineOptions } from './IMultiOptionsPolylineOptions'
 
-type PolylineOptionsFn = (optionIdx: number) => PolylineOptions;
-
-interface MultiOptions {
-    optionIdxFn: (latLng: LatLng, prevLatLng: LatLng, index: number, allLatlngs: Array<LatLng>) => number;
-    // options for the index returned by optionIdxFn. If supplied with a function then it will be called with the index
-    options: PolylineOptions[] | PolylineOptionsFn;
-    // the context to call optionIdxFn (optional)
-    fnContext?: any;
-    copyBaseOptions?: boolean;
-}
-
-export interface MultiOptionsPolylineOptions extends MarkerOptions {
-    multiOptions: MultiOptions;
-}
-
-export default class MultiOptionsPolyline extends FeatureGroup {
+export default class MultiOptionsPolyline extends FeatureGroup
+{
     _layers: object;
-    _options: any;
+    _options: IMultiOptionsPolylineOptions;
     _originalLatlngs: Array<LatLng>;
     _inLatLngs: Array<LatLng>;
-    constructor(latlngs: Array<LatLng>, options: MultiOptionsPolylineOptions){
-        super();      
+    constructor(latlngs: Array<LatLng>, options: IMultiOptionsPolylineOptions){
+        super();
         this._options = options;
         this._originalLatlngs = latlngs;
-        
+
         let copyBaseOptions = this._options.multiOptions.copyBaseOptions;
         
         this._layers = {};
-        if (copyBaseOptions === undefined || copyBaseOptions) {
-            this._copyBaseOptions();
+        if (copyBaseOptions) {
+            this.copyBaseOptions();
         }
 
         this.setLatLngs(this._originalLatlngs);
     }
-    _copyBaseOptions () {
-        let multiOptions = this._options.multiOptions,
-            baseOptions,
-            optionsArray = multiOptions.options,
-            i, len = optionsArray.length;
 
-        baseOptions = Util.extend({}, this._options);
+    private copyBaseOptions ():void {
+        let multiOptions = this._options.multiOptions,
+            optionsArray = multiOptions.options;
+        let len = optionsArray.length;
+
+        let baseOptions = Util.extend({}, this._options);
         delete baseOptions.multiOptions;
 
-        for (i = 0; i < len; ++i) {
-            optionsArray[i] = Util.extend(baseOptions, optionsArray[i]);
+        for (let i = 0; i < len; ++i) {
+            optionsArray[i] = Util.extend(baseOptions, multiOptions.options[i]);
         }
     }
+    
 
-    setLatLngs (latlngs:Array<LatLng>) {
-        let i, len = latlngs.length,
-            multiOptions = this._options.multiOptions,
+    setLatLngs (latlngs:Array<LatLng>):void {
+        let multiOptions = this._options.multiOptions,
             optionIdxFn = multiOptions.optionIdxFn,
             fnContext = multiOptions.fnContext || this,
             prevOptionIdx, optionIdx,
@@ -60,7 +47,9 @@ export default class MultiOptionsPolyline extends FeatureGroup {
             this.removeLayer(layer);
         }, this);
 
-        for (i = 1; i < len; ++i) {
+
+        let len = latlngs.length;
+        for (let i = 1; i < len; ++i) {
             optionIdx = optionIdxFn.call(
                 fnContext, latlngs[i], latlngs[i - 1], i, latlngs);
 
@@ -84,27 +73,21 @@ export default class MultiOptionsPolyline extends FeatureGroup {
                 segmentLatlngs = [latlngs[i]];
             }
         }
-
-        return this;
     }
 
-    getLatLngs() {
+    getLatLngs(): Array<LatLng> {
         return this._originalLatlngs;
     }
 
-    getLatLngsSegments() {
-        let latlngs:Array<LatLng> = [];
+    getLatLngsSegments():Array< Array<LatLng> > {
+        let latlngs:Array< Array<LatLng> > = [];
 
         this.eachLayer((layer) => {
             if(layer instanceof Polyline){
-                latlngs.concat(layer.getLatLngs());
+                latlngs.push(layer.getLatLngs());
             }
         });
 
         return latlngs;
     }
-}
-
-export function multiOptionsPolyline(latlngs:Array<LatLng>, options: MultiOptionsPolylineOptions): MultiOptionsPolyline{
-    return new MultiOptionsPolyline(latlngs, options);
 }

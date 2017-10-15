@@ -1,15 +1,19 @@
 import typescript from 'rollup-plugin-typescript';
 
 export default {
-  entry: './src/Leaflet.MultiOptionsPolyline.ts',
+  input: './src/MultiOptionsPolyline.ts',
   output: {
-    file: 'dist/Leaflet.MultiOptionsPolyline.js',
-    format: 'iife',
-    name: 'L.MultiOptionsPolyline',
+    file: 'dist/MultiOptionsPolyline.js',
+    format: 'iife'
   },
+  name: 'MultiOptionsPolyline',
+  globals: {
+    leaflet: 'L'
+  },
+  external: [ 'leaflet' ],
   plugins: [
     typescript({
         typescript: require('typescript')
-      })
+    })
   ]
 }

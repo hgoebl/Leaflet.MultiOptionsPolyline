@@ -11,7 +11,7 @@ Have a look at the demo. Links to source code are included.
 # Example
 
 ```js
-L.multiOptionsPolyline(points, {
+new MultiOptionsPolyline(points, {
     multiOptions: {
         optionIdxFn: function (latLng) {
             var i,
@@ -41,6 +41,10 @@ L.multiOptionsPolyline(points, {
 ## Bower
 
     $ bower install hgoebl/Leaflet.MultiOptionsPolyline --save
+
+## NPM
+
+    npm install Leaflet.MultiOptionsPolyline --save
 
 # License
 
