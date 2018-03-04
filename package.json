@@ -1,16 +1,25 @@
 {
   "name": "Leaflet.MultiOptionsPolyline",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A Leaflet plugin for multi-colored Polyline",
-  "main": "Leaflet.MultiOptionsPolyline.js",
-  "typings": "index",
+  "main": "dist/Leaflet.MultiOptionsPolyline.umd.js",
+  "typings": "dist/Leaflet.MultiOptionsPolyline.d.ts",
+  "scripts": {
+    "compile": "tsc",
+    "package": "rollup -c",
+    "uglify": "uglifyjs -o dist/Leaflet.MultiOptionsPolyline.browser.min.js dist/Leaflet.MultiOptionsPolyline.browser.js",
+    "build": "npm run compile && npm run package && npm run uglify"
+  },
   "devDependencies": {
     "@types/leaflet": "^1.0.38",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-uglify": "^2.0.0"
+    "grunt-contrib-uglify": "^2.0.0",
+    "rollup": "^0.56.3",
+    "typescript": "^2.7.2",
+    "uglify-js": "^3.3.13"
   },
   "peerDependencies": {
     "leaflet": "^1.0.0"
@@ -20,9 +29,9 @@
     "url": "https://github.com/hgoebl/Leaflet.MultiOptionsPolyline.git"
   },
   "keywords": [
+    "leaflet",
     "color",
     "color-coded",
-    "leaflet",
     "polyline"
   ],
   "author": {

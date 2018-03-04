@@ -1,8 +1,10 @@
 import { Polyline, FeatureGroup, Util, LatLng, PolylineOptions, MarkerOptions } from 'leaflet';
 
-type PolylineOptionsFn = (optionIdx: number) => PolylineOptions;
+import * as L from 'leaflet';
 
-interface MultiOptions {
+export type PolylineOptionsFn = (optionIdx: number) => PolylineOptions;
+
+export interface MultiOptions {
     optionIdxFn: (latLng: LatLng, prevLatLng: LatLng, index: number, allLatlngs: Array<LatLng>) => number;
     // options for the index returned by optionIdxFn. If supplied with a function then it will be called with the index
     options: PolylineOptions[] | PolylineOptionsFn;
@@ -15,11 +17,11 @@ export interface MultiOptionsPolylineOptions extends MarkerOptions {
     multiOptions: MultiOptions;
 }
 
-class MultiOptionsPolyline extends FeatureGroup {
-    _layers: object;
-    _options: any;
-    _originalLatlngs: Array<LatLng>;
-    _inLatLngs: Array<LatLng>;
+export class MultiOptionsPolyline extends FeatureGroup {
+    private _layers: object;
+    private _options: any;
+    private _originalLatlngs: Array<LatLng>;
+    private _inLatLngs: Array<LatLng>;
     constructor(latlngs: Array<LatLng>, options: MultiOptionsPolylineOptions){
         super();      
         this._options = options;
@@ -34,7 +36,7 @@ class MultiOptionsPolyline extends FeatureGroup {
 
         this.setLatLngs(this._originalLatlngs);
     }
-    _copyBaseOptions () {
+    private _copyBaseOptions () {
         let multiOptions = this._options.multiOptions,
             baseOptions,
             optionsArray = multiOptions.options,
@@ -56,7 +58,7 @@ class MultiOptionsPolyline extends FeatureGroup {
             prevOptionIdx, optionIdx,
             segmentLatlngs;
 
-        this.eachLayer(function (layer) {
+        this.eachLayer((layer) => {
             this.removeLayer(layer);
         }, this);
 
