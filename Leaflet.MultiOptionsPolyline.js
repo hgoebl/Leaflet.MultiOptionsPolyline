@@ -54,8 +54,8 @@ var MultiOptionsPolyline = L.FeatureGroup.extend({
             multiOptions = this._options.multiOptions,
             optionIdxFn = multiOptions.optionIdxFn,
             fnContext = multiOptions.fnContext || this,
-            prevOptionIdx, optionIdx,
-            segmentLatlngs;
+            nextOptionsIdx, optionIdx,
+            segmentLatlngs = [];
 
         this._originalLatlngs = latlngs;
 
@@ -63,27 +63,25 @@ var MultiOptionsPolyline = L.FeatureGroup.extend({
             this.removeLayer(layer);
         }, this);
 
-        for (i = 1; i < len; ++i) {
-            optionIdx = optionIdxFn.call(
-                fnContext, latlngs[i], latlngs[i - 1], i, latlngs);
+        for (i = 0; i < len; ++i) {
 
-            if (i === 1) {
-                segmentLatlngs = [latlngs[0]];
-                prevOptionIdx = optionIdxFn.call(fnContext, latlngs[0], latlngs[0], 0, latlngs);
+            // If there is next point
+            if (latlngs[i + 1]) {
+                nextOptionsIdx = optionIdxFn.call(fnContext, latlngs[i + 1], latlngs[i], i + 1, latlngs);
             }
+            optionIdx = optionIdxFn.call(fnContext, latlngs[i], latlngs[i - 1] || latlngs[i], i, latlngs);
 
             segmentLatlngs.push(latlngs[i]);
 
             // is there a change in options or is it the last point?
-            if (prevOptionIdx !== optionIdx || i === len - 1) {
+            if (optionIdx !== nextOptionsIdx || i === len - 1) {
                 // Check if options is a function or an array
                 if (typeof multiOptions.options === "function") {
-                    this.addLayer(L.polyline(segmentLatlngs, multiOptions.options(prevOptionIdx)));
+                    this.addLayer(L.polyline(segmentLatlngs, multiOptions.options(optionIdx)));
                 } else {
-                    this.addLayer(L.polyline(segmentLatlngs, multiOptions.options[prevOptionIdx]));
+                    this.addLayer(L.polyline(segmentLatlngs, multiOptions.options[optionIdx]));
                 }
 
-                prevOptionIdx = optionIdx;
                 segmentLatlngs = [latlngs[i]];
             }
         }
