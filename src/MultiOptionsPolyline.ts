@@ -12,19 +12,19 @@ export default class MultiOptionsPolyline extends FeatureGroup
         this._options = options;
         this._originalLatlngs = latlngs;
 
-        let copyBaseOptions = this._options.multiOptions.copyBaseOptions;
+        //let copyBaseOptions = this._options.multiOptions.copyBaseOptions;
         
         this._layers = {};
-        if (copyBaseOptions) {
+        /*if (copyBaseOptions) {
             this.copyBaseOptions();
-        }
+        }*/
 
         this.setLatLngs(this._originalLatlngs);
     }
-
+    /*
     private copyBaseOptions ():void {
-        let multiOptions = this._options.multiOptions,
-            optionsArray = multiOptions.options;
+        let multiOptions = this._options.multiOptions;
+        let optionsArray = multiOptions.options;
         let len = optionsArray.length;
 
         let baseOptions = Util.extend({}, this._options);
@@ -34,7 +34,7 @@ export default class MultiOptionsPolyline extends FeatureGroup
             optionsArray[i] = Util.extend(baseOptions, multiOptions.options[i]);
         }
     }
-    
+    */
 
     setLatLngs (latlngs:Array<LatLng>):void {
         let multiOptions = this._options.multiOptions,

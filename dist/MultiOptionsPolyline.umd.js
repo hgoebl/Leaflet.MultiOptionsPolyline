@@ -16,23 +16,28 @@ var MultiOptionsPolyline = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this._options = options;
         _this._originalLatlngs = latlngs;
-        var copyBaseOptions = _this._options.multiOptions.copyBaseOptions;
+        //let copyBaseOptions = this._options.multiOptions.copyBaseOptions;
         _this._layers = {};
-        if (copyBaseOptions) {
-            _this.copyBaseOptions();
-        }
+        /*if (copyBaseOptions) {
+            this.copyBaseOptions();
+        }*/
         _this.setLatLngs(_this._originalLatlngs);
         return _this;
     }
-    MultiOptionsPolyline.prototype.copyBaseOptions = function () {
-        var multiOptions = this._options.multiOptions, optionsArray = multiOptions.options;
-        var len = optionsArray.length;
-        var baseOptions = leaflet.Util.extend({}, this._options);
+    /*
+    private copyBaseOptions ():void {
+        let multiOptions = this._options.multiOptions;
+        let optionsArray = multiOptions.options;
+        let len = optionsArray.length;
+
+        let baseOptions = Util.extend({}, this._options);
         delete baseOptions.multiOptions;
-        for (var i = 0; i < len; ++i) {
-            optionsArray[i] = leaflet.Util.extend(baseOptions, multiOptions.options[i]);
+
+        for (let i = 0; i < len; ++i) {
+            optionsArray[i] = Util.extend(baseOptions, multiOptions.options[i]);
         }
-    };
+    }
+    */
     MultiOptionsPolyline.prototype.setLatLngs = function (latlngs) {
         var _this = this;
         var multiOptions = this._options.multiOptions, optionIdxFn = multiOptions.optionIdxFn, fnContext = multiOptions.fnContext || this, prevOptionIdx, optionIdx, segmentLatlngs;

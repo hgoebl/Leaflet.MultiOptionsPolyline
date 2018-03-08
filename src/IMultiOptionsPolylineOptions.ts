@@ -10,7 +10,7 @@ interface IMultiOptions {
     options: Array<PolylineOptions> | PolylineOptionsFn;
     // the context to call optionIdxFn (optional)
     fnContext?: any;
-    copyBaseOptions?: boolean;
+    //copyBaseOptions?: boolean;
 }
 
 export interface IMultiOptionsPolylineOptions extends PolylineOptions {
