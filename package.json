@@ -1,19 +1,25 @@
 {
-  "name": "Leaflet.MultiOptionsPolyline",
+  "name": "leaflet-multi-options-polyline",
   "version": "1.0.0",
   "description": "A Leaflet plugin for multi-colored Polyline",
-  "main": "Leaflet.MultiOptionsPolyline.js",
-  "typings": "index",
+  "main": "dist/MultiOptionsPolyline.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server ./demo",
+    "copy": "cpx dist/**/*.js demo/js",
+    "build": "rollup -c && npm run copy"
+  },
   "devDependencies": {
-    "@types/leaflet": "^1.0.38",
-    "grunt": "^1.0.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-uglify": "^2.0.0"
+    "@types/leaflet": "^1.2.0",
+    "cpx": "^1.5.0",
+    "http-server": "^0.10.0",
+    "leaflet": "^1.2.0",
+    "rollup": "^0.50.0",
+    "rollup-plugin-typescript": "^0.8.1",
+    "typescript": "^2.5.3"
   },
   "peerDependencies": {
-    "leaflet": "^1.0.0"
+    "leaflet": "^1.2.0"
   },
   "repository": {
     "type": "git",
